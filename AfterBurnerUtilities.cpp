@@ -10,6 +10,8 @@ void KeyPressed(int keycode){
 
 void KeyUp(int keycode){ 
 	keycodes[keycode] = false;
+	//TILT_X = 2;
+	TILT_Y = 1;
 }
 
 void ImportBackgrounds() {
@@ -40,6 +42,10 @@ void ImportFighter() {
 	}
 }
 
+void ImportEnemy() {
+	ReadImage("Assets/Enemy/enemy_base.bmp", ENEMY);
+}
+
 void ImportNavigation() {
 	const char* fileHeaders[] = {
 		"right30", "right25", "right20", "right15", "right10", "right5", "base", "left5", "left10", "left15", "left20", "left25", "left30",
@@ -63,6 +69,7 @@ void Configure() {
 	ImportBackgrounds();
 	ImportFighter();
 	ImportNavigation();
+	ImportEnemy();
 }
 
 void UpdateNavball() {

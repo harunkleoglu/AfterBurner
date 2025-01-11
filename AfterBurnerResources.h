@@ -29,6 +29,10 @@ ICBYTES BG_BASE_ANIM[5];
 ICBYTES NAVIGATION_VECTOR[13];			// Navigation base images.
 ICBYTES NAVBALL;						// Navball base image.
 
+// Enemy attributes.
+ICBYTES ENEMY;
+
+
 
 
 // Tilt image state enumerator. IF IT IS USELESS DELETE!
