@@ -3,11 +3,11 @@
 #include "AfterBurnerResources.h"
 #include <stdio.h>
 
-void KeyPressed(int keycode){ 
+void KeyPressed(int keycode) {
 	keycodes[keycode] = true;
 }
 
-void KeyUp(int keycode){ 
+void KeyUp(int keycode) {
 	keycodes[keycode] = false;
 	//TILT_X = 2;
 	TILT_Y = 1;
@@ -42,7 +42,15 @@ void ImportFighter() {
 }
 
 void ImportEnemy() {
-	ReadImage("Assets/Enemy/enemy_base.bmp", ENEMY);
+	const char* fileHeaders[] = {
+	"left30", "left25", "left20", "left15", "left10", "left5", "base","right5",  "right10", "right15", "right20", "right25", "right30"
+	};
+
+	for (int i = 0; i < 13; i++) {
+		char filepath[128];
+		snprintf(filepath, sizeof(filepath), "Assets/Enemy/enemy-%s.bmp", fileHeaders[i]);
+		ReadImage(filepath, ENEMY_VECTOR[i]);
+	}
 }
 
 void ImportNavigation() {

@@ -2,6 +2,7 @@
 #include "AfterBurnerResources.h"
 #include "AfterBurnerUtilities.cpp"
 #include <ctime>
+#include <cmath>
 
 
 int GAME_FRAME;
@@ -56,7 +57,7 @@ void Update() {
 		PasteNon0(FIGHTER_VECTOR[TILT_Y][TILT_X], FIGHTER_X, FIGHTER_Y, RENDER);
 		PasteNon0(NAVIGATION_VECTOR[BG_POS_X], 1050, 20, RENDER);
 		PasteNon0(NAVBALL, NAVBALL_X, NAVBALL_Y, RENDER);
-		PasteNon0(ENEMY, CENTER_X-75, CENTER_Y-75, RENDER);
+		//PasteNon0(ENEMY, CENTER_X-75, CENTER_Y-75, RENDER);
 		DisplayImage(GAME_FRAME, RENDER);
 		Sleep(16); // 16ms for 60 FPS - 33ms for 30 FPS
 		FRAMERATE = (FRAMERATE + 1) % 60;
@@ -69,21 +70,39 @@ void TitleMusic() {
 }
 
 
-
-
 void EnemyPlane() {
-	//xmid = 565 ymid= 285
-	srand(time(0)*10 + clock()*20);
-	int enemyX = 100+(rand()%1000);
-	int enemyY = 100+(rand()%1000);
 
-	int xDistance = CENTER_X - 75 - enemyX;
-	int yDistance = CENTER_Y - 75 - enemyY;
+	int speed = 4;
+	int x = 200;
+	int y = 100;
 
-	double xSpeed = 6;
-	double ySpeed = (xSpeed) * (xDistance / yDistance);
+	while (true) {
+		if (FRAMERATE % 2 == 0) {
+			int Cx = FIGHTER_X + 39;
+			int Cy = FIGHTER_Y - 75;
+
+			int xDistance = Cx - x;
+			int yDistance = Cy - y;
+
+			if (xDistance == 0 && yDistance == 0) {
+				break;
+			}
+
+			double distance = sqrt(xDistance * xDistance + yDistance * yDistance);
+
+			double xSpeed = (xDistance / distance) * speed;
+			double ySpeed = (yDistance / distance) * speed;
+
+			x += static_cast<int>(xSpeed);
+			y += static_cast<int>(ySpeed);
+		}
 
 
+		ICG_printf(console, "X:%d\n", x);
+		ICG_printf(console, "Y:%d\n", y);
+
+		PasteNon0(ENEMY_VECTOR[BG_POS_X], x, y, RENDER);
+	}
 }
 
 
