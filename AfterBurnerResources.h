@@ -29,6 +29,7 @@ int FIGHTER_Y = CENTER_Y - 16*3;					// Fighter's (Player) vertical position.
 ICBYTES RENDER;							// Base renderer image that will display on screen each frame.
 ICBYTES BG_VECTOR[13][5];				// Background images list.
 ICBYTES FIGHTER_VECTOR[3][5];
+ICBYTES ENEMY_VECTOR[13];
 ICBYTES BG_BASE_ANIM[5];
 ICBYTES NAVIGATION_VECTOR[13];			// Navigation base images.
 ICBYTES NAVBALL;						// Navball base image.
