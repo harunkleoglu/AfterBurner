@@ -14,13 +14,17 @@ int BG_POS_Y = 0;						// Vertical position of the background.
 int NAVBALL_X = 1157;					// Horizontal position of the navball.
 int NAVBALL_Y = 0;						// Vertical position of the navball.
 
+int CENTER_X = 640;						// Center point of the frame
+int CENTER_Y = 360;						//
+
+
 
 // Plane's animation states.
 int TILT_X = 2;							// 0 1 2 3 4	VALUES
 int TILT_Y = 1;							// 0 1 2		VALUES
 
-int FIGHTER_X = 525;					// Fighter's (Player) horizontal position.
-int FIGHTER_Y = 300;					// Fighter's (Player) vertical position.
+int FIGHTER_X = CENTER_X - 39*3;					// Fighter's (Player) horizontal position.
+int FIGHTER_Y = CENTER_Y - 16*3;					// Fighter's (Player) vertical position.
 
 ICBYTES RENDER;							// Base renderer image that will display on screen each frame.
 ICBYTES BG_VECTOR[13][5];				// Background images list.

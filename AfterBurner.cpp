@@ -1,6 +1,8 @@
 #include "icb_gui.h"
 #include "AfterBurnerResources.h"
 #include "AfterBurnerUtilities.cpp"
+#include <ctime>
+
 
 int GAME_FRAME;
 int FRAMERATE = 0;
@@ -54,7 +56,7 @@ void Update() {
 		PasteNon0(FIGHTER_VECTOR[TILT_Y][TILT_X], FIGHTER_X, FIGHTER_Y, RENDER);
 		PasteNon0(NAVIGATION_VECTOR[BG_POS_X], 1050, 20, RENDER);
 		PasteNon0(NAVBALL, NAVBALL_X, NAVBALL_Y, RENDER);
-		PasteNon0(ENEMY, 100, 100, RENDER);
+		PasteNon0(ENEMY, CENTER_X-75, CENTER_Y-75, RENDER);
 		DisplayImage(GAME_FRAME, RENDER);
 		Sleep(16); // 16ms for 60 FPS - 33ms for 30 FPS
 		FRAMERATE = (FRAMERATE + 1) % 60;
@@ -68,19 +70,43 @@ void TitleMusic() {
 
 
 
+
+void EnemyPlane() {
+	//xmid = 565 ymid= 285
+	srand(time(0)*10 + clock()*20);
+	int enemyX = 100+(rand()%1000);
+	int enemyY = 100+(rand()%1000);
+
+	int xDistance = CENTER_X - 75 - enemyX;
+	int yDistance = CENTER_Y - 75 - enemyY;
+
+	double xSpeed = 6;
+	double ySpeed = (xSpeed) * (xDistance / yDistance);
+
+
+}
+
+
+
+
+
 void ICGUI_main() {
-	DWORD dw, dw2;
+	DWORD dw, dw2, dw3;
+	// DEBUG CONSOLE
+	console = ICG_MLEditSunken(0, 740, 1280, 200, "Console", SCROLLBAR_V);
+
 	GAME_FRAME = ICG_Frameless(0, 0, 1280, 720);
 	Configure();
 
 	CreateImage(RENDER, 1280, 720, ICB_UINT);
 
-	DisplayImage(GAME_FRAME, RENDER);
-
 	CreateThread(0, 0, (LPTHREAD_START_ROUTINE)Update, 0, 0, &dw);
-	
+
 	CreateThread(0, 0, (LPTHREAD_START_ROUTINE)TitleMusic, 0, 0, &dw2);
+
+	CreateThread(0, 0, (LPTHREAD_START_ROUTINE)EnemyPlane, 0, 0, &dw3);
 	
-	// DEBUG CONSOLE
-	console = ICG_MLEditSunken(0, 740, 1280, 200, "Console", SCROLLBAR_V);
+	
 }
+
+

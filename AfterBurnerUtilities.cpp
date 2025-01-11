@@ -3,7 +3,6 @@
 #include "AfterBurnerResources.h"
 #include <stdio.h>
 
-
 void KeyPressed(int keycode){ 
 	keycodes[keycode] = true;
 }
