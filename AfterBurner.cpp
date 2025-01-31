@@ -4,7 +4,6 @@
 #include <ctime>
 #include <cmath>
 
-
 int GAME_FRAME;
 int FRAMERATE = 0;
 
@@ -53,11 +52,10 @@ void Update() {
 
 		Copy(BG_VECTOR[BG_POS_X][FRAMERATE%3], 1, BG_POS_Y + 1, 1280, 720, RENDER);
 
-
 		PasteNon0(FIGHTER_VECTOR[TILT_Y][TILT_X], FIGHTER_X, FIGHTER_Y, RENDER);
 		PasteNon0(NAVIGATION_VECTOR[BG_POS_X], 1050, 20, RENDER);
 		PasteNon0(NAVBALL, NAVBALL_X, NAVBALL_Y, RENDER);
-		//PasteNon0(ENEMY, CENTER_X-75, CENTER_Y-75, RENDER);
+		PasteNon0(ENEMY_VECTOR[BG_POS_X], ENEMY_X, ENEMY_Y, RENDER);
 		DisplayImage(GAME_FRAME, RENDER);
 		Sleep(16); // 16ms for 60 FPS - 33ms for 30 FPS
 		FRAMERATE = (FRAMERATE + 1) % 60;
@@ -69,45 +67,44 @@ void TitleMusic() {
 	PlaySound("Assets/SoundEffects/After_Burner_Title_Music.wav", NULL, SND_ASYNC);
 }
 
-
 void EnemyPlane() {
 
-	int speed = 4;
-	int x = 200;
-	int y = 100;
+	int speed = 2;
+	
 
 	while (true) {
 		if (FRAMERATE % 2 == 0) {
 			int Cx = FIGHTER_X + 39;
-			int Cy = FIGHTER_Y - 75;
+			int Cy = FIGHTER_Y - 115;
 
-			int xDistance = Cx - x;
-			int yDistance = Cy - y;
+			int xDistance = Cx - ENEMY_X;
+			int yDistance = Cy - ENEMY_Y;
 
-			if (xDistance == 0 && yDistance == 0) {
-				break;
-			}
+			/*if (xDistance >= 0 && xDistance <= 5) {
+				if (yDistance >= 0 && yDistance <= 5) {
+					break;
+				}
+			}*/
 
 			double distance = sqrt(xDistance * xDistance + yDistance * yDistance);
-
+			if (distance <= 0) {
+				distance = 1;
+			}
 			double xSpeed = (xDistance / distance) * speed;
 			double ySpeed = (yDistance / distance) * speed;
 
-			x += static_cast<int>(xSpeed);
-			y += static_cast<int>(ySpeed);
+
+			ENEMY_X += static_cast<int>(xSpeed);
+			ENEMY_Y += static_cast<int>(ySpeed);
 		}
 
 
-		ICG_printf(console, "X:%d\n", x);
-		ICG_printf(console, "Y:%d\n", y);
+		ICG_printf(console, "X:%d\n", ENEMY_X);
+		ICG_printf(console, "Y:%d\n", ENEMY_Y);
 
-		PasteNon0(ENEMY_VECTOR[BG_POS_X], x, y, RENDER);
+		
 	}
 }
-
-
-
-
 
 void ICGUI_main() {
 	DWORD dw, dw2, dw3;

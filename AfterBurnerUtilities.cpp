@@ -81,5 +81,5 @@ void Configure() {
 
 void UpdateNavball() {
 	NAVBALL_X = 1065 + (BG_POS_X * 11.25);
-	NAVBALL_Y = 0.28 * BG_POS_Y + 26.5;
+	NAVBALL_Y = (0.28 * BG_POS_Y) + 26.5;
 }

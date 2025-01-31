@@ -26,6 +26,9 @@ int TILT_Y = 1;							// 0 1 2		VALUES
 int FIGHTER_X = CENTER_X - 39 * 3;					// Fighter's (Player) horizontal position.
 int FIGHTER_Y = CENTER_Y - 16 * 3;					// Fighter's (Player) vertical position.
 
+int ENEMY_X = 200;						// Enemy plane's horizontal position.
+int ENEMY_Y = 100;						// Enemy plane's vertical position.
+
 ICBYTES RENDER;							// Base renderer image that will display on screen each frame.
 ICBYTES BG_VECTOR[13][5];				// Background images list.
 ICBYTES FIGHTER_VECTOR[3][5];
